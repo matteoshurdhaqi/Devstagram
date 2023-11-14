@@ -1,0 +1,85 @@
+.rightbar{
+    flex: 3;
+    position: sticky;
+    top: 50px;
+    height: calc(100vh - 50px);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    
+
+    .container{
+        padding: 10px;
+        border-radius: 6px;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        box-shadow: 0px 0px 6px 0px rgba(0,0,0,0.7);
+        span{
+            color: gray;
+        }
+        .item{
+        display: flex;
+        justify-content: space-between; 
+        
+            .user{
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                   
+                    img{
+                        width: 30px;
+                        height: 30px;
+                        border-radius: 50%;
+                        object-fit: cover;
+                    }
+                    span{
+                        font-weight: 500;
+                        color: black;
+                    }
+            }
+            button{
+                border: none;
+                background: transparent;
+                font-weight: 400;
+                color: #756ef5;
+                cursor: pointer;
+            }
+        }
+    }
+    .online{
+        padding: 10px;
+        border-radius: 6px;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        box-shadow: 0px 0px 6px 0px rgba(0,0,0,0.7);
+        overflow: scroll;
+        &::-webkit-scrollbar{
+            display: none;
+        }
+        span{
+            color: gray;
+        }
+        .user {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+
+            img {
+                width: 30px;
+                height: 30px;
+                border-radius: 50%;
+                object-fit: cover;
+            }
+            .online_ping{
+                height: 10px;
+                width: 10px;
+                border-radius: 50%;
+                background-color: green;
+            }
+        }
+    }
+}

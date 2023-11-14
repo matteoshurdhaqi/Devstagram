@@ -1,0 +1,44 @@
+$themes:(
+    light:(
+        textColor: #000,
+        bg: white,
+        logo: #756ef5,
+        bgSoft: #f6f3f3,
+        textColorSoft: #555,
+        border: lightgray
+    ),
+
+    dark:(
+        textColor: whitesmoke,
+        bg: #222,
+        logo: white,
+        bgSoft: #191651,
+        textColorSoft: lightgray,
+        border: #444
+    ),
+);
+
+// this func takes themes and for each theme(light and dark)
+// and changes values of childs
+@mixin themify($themes){
+    @each $theme, $map in $themes {
+        .theme-#{$theme} & {
+            $theme-map: () !global;
+            @each $key, $submap in $map {
+                $value: map-get(map-get($themes, $theme), "#{$key}");
+                $theme-map: map-merge(
+                    $theme-map,
+                    (
+                        $key: $value,
+                    )
+                ) !global;
+            }
+            @content;
+            $theme-map: null !global;
+        }
+    }
+}
+
+@function themed($key){
+    @return map-get($theme-map, $key)
+}
