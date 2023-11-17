@@ -12,7 +12,7 @@ $themes:(
         textColor: whitesmoke,
         bg: #222,
         logo: white,
-        bgSoft: #191651,
+        bgSoft: #333,
         textColorSoft: lightgray,
         border: #444
     ),
@@ -41,4 +41,18 @@ $themes:(
 
 @function themed($key){
     @return map-get($theme-map, $key)
+};
+
+
+@mixin mobile{
+    @media(max-width: 480px){
+       @content; 
+    }
+};
+
+@mixin tablet{
+    @media (max-width: 960px){
+        @content; 
+    }
 }
+

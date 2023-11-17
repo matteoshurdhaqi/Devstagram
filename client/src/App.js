@@ -7,16 +7,22 @@ import Home from "./pages/home/Home";
 import Profile from "./pages/profile/Profile";
 import {createBrowserRouter, Outlet, RouterProvider} from "react-router-dom";
 import"./style.scss"
+import { DarkModeContext } from "./context/darkModeContext";
+import { useContext } from "react";
+
 
 function App() {
 
+  
+  const {darkMode} = useContext(DarkModeContext);
+
   const Layout = () => {
     return(
-      <div className="theme-dark">
+      <div className={`theme-${darkMode ? "dark" : "light"}`}>
         <Navbar/>
         <div style={{display: "flex"}}>
           <Leftbar/>
-          <div style={{flex: 6}}>
+          <div style={{flex: 10}}>
             <Outlet/>
           </div>
           <Rightbar/>

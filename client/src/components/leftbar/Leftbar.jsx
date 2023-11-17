@@ -4,10 +4,14 @@ import ExploreOutlinedIcon from '@mui/icons-material/ExploreOutlined';
 import SlideshowOutlinedIcon from '@mui/icons-material/SlideshowOutlined';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import AddBoxOutlinedIcon from '@mui/icons-material/AddBoxOutlined';
-import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { AuthContext } from "../../context/authContext";
 
 
 const Leftbar = () => {
+
+  const {currentUser} = useContext(AuthContext);
+  
   return (
     <div className="leftbar">
       <div className="container">
@@ -38,8 +42,8 @@ const Leftbar = () => {
         </div>
 
         <div className="user">
-          <img src="" alt="" />
-          <span>Eric Cartman</span>
+          <img src={currentUser.profilePic} alt="" />
+          <span>{currentUser.firstname}</span>
         </div>
         </div>
       </div>

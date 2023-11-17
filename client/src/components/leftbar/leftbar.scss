@@ -1,0 +1,62 @@
+@import "../../style.scss";
+
+
+.leftbar {
+    @include themify($themes) {
+        flex: 3;
+        position: sticky;
+        top: 71px;
+        height: calc(100vh - 71px);
+        display: flex;
+        border-right: 1px solid themed("border");
+        background-color: themed("bg");
+        color: themed("textColor");
+        
+        @include mobile{
+            display: none;
+        }
+
+        @include tablet{
+            display: none;
+        }
+        
+        .container {
+            padding: 20px;
+            display: flex;
+
+            .menu {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                gap: 40px;
+                font-size: 20px;
+                font-weight: 500;
+                
+
+                .item {
+                    display: flex;
+                    align-items: center;
+                    gap: 10px;
+                    cursor: pointer;
+                }
+
+                .user {
+                    display: flex;
+                    align-items: center;
+                    gap: 10px;
+                    cursor: pointer;
+
+                    img {
+                        width: 30px;
+                        height: 30px;
+                        border-radius: 50%;
+                        object-fit: cover;
+                    }
+
+                }
+            }
+
+        }
+
+    }
+}
