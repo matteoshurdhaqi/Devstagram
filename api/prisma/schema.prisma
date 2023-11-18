@@ -1,0 +1,72 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           Int            @id @default(autoincrement())
+  email        String         @unique
+  password     String         @db.VarChar(255)
+  name         String
+  coverImg     String?        @db.VarChar(255)
+  profileImg   String?        @db.VarChar(255)
+  city         String?
+  website      String?
+  Post         Post[]
+  Comment      Comment[]
+  Stories      Stories[]
+  follower     Relationship[] @relation("follower")
+  followed     Relationship[] @relation("followed")
+  Relationship Relationship[]
+  Likes        Likes[]
+}
+
+model Post {
+  id          Int       @id @default(autoincrement())
+  description String    @db.VarChar(400)
+  img         String    @db.VarChar(255)
+  createdAt   DateTime  @default(now())
+  userId      Int // Chiave esterna che fa riferimento all'id dell'utente
+  user        User      @relation(fields: [userId], references: [id])
+  Comment     Comment[]
+  Likes       Likes[]
+}
+
+model Comment {
+  id          Int      @id @default(autoincrement())
+  description String
+  createdAt   DateTime @default(now())
+  userId      Int // Chiave esterna che fa riferimento all'id dell'utente
+  user        User     @relation(fields: [userId], references: [id])
+  postId      Int // Chiave esterna che fa riferimento all'id del post
+  post        Post     @relation(fields: [postId], references: [id])
+}
+
+model Stories {
+  id     Int    @id @default(autoincrement())
+  img    String @db.VarChar(255)
+  userId Int
+  user   User   @relation(fields: [userId], references: [id])
+}
+
+model Relationship {
+  id             Int   @id @default(autoincrement())
+  followerUserId Int // Chiave esterna che fa riferimento all'id dell'utente follower
+  followedUserId Int // Chiave esterna che fa riferimento all'id dell'utente seguito
+  follower       User  @relation("follower", fields: [followerUserId], references: [id])
+  followed       User  @relation("followed", fields: [followedUserId], references: [id])
+  User           User? @relation(fields: [userId], references: [id])
+  userId         Int?
+}
+
+model Likes {
+  id     Int  @id @default(autoincrement())
+  userId Int // Chiave esterna che fa riferimento all'id dell'utente
+  user   User @relation(fields: [userId], references: [id])
+  postId Int // Chiave esterna che fa riferimento all'id del post
+  post   Post @relation(fields: [postId], references: [id])
+}
