@@ -5,54 +5,63 @@ import Login from "./pages/login/Login"
 import Register from "./pages/register/Register";
 import Home from "./pages/home/Home";
 import Profile from "./pages/profile/Profile";
-import {createBrowserRouter, Outlet, RouterProvider} from "react-router-dom";
-import"./style.scss"
+import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
+import "./style.scss"
 import { DarkModeContext } from "./context/darkModeContext";
 import { useContext } from "react";
+import {
+  QueryClient,
+  QueryClientProvider,
+} from '@tanstack/react-query'
+import { AuthContext } from "./context/authContext";
 
 
 function App() {
 
-  
-  const {darkMode} = useContext(DarkModeContext);
+  const {currentUser} = useContext(AuthContext)
+  const queryClient = new QueryClient();
+
+  const { darkMode } = useContext(DarkModeContext);
 
   const Layout = () => {
-    return(
-      <div className={`theme-${darkMode ? "dark" : "light"}`}>
-        <Navbar/>
-        <div style={{display: "flex"}}>
-          <Leftbar/>
-          <div style={{flex: 10}}>
-            <Outlet/>
+    return (
+      <QueryClientProvider client={queryClient}>
+        <div className={`theme-${darkMode ? "dark" : "light"}`}>
+          <Navbar />
+          <div style={{ display: "flex" }}>
+            <Leftbar />
+            <div style={{ flex: 10 }}>
+              <Outlet />
+            </div>
+            <Rightbar />
           </div>
-          <Rightbar/>
         </div>
-      </div>
+      </QueryClientProvider>
     )
   }
 
   const router = createBrowserRouter([
     {
       path: "/",
-      element: <Layout/>,
+      element: <Layout />,
       children: [
         {
           path: "/",
-          element: <Home/>
+          element: <Home />
         },
         {
           path: "/profile/:id",
-          element: <Profile/>
+          element: <Profile />
         }
       ]
     },
     {
       path: "/login",
-      element: <Login/>,
+      element: <Login />,
     },
     {
       path: "/register",
-      element: <Register/>,
+      element: <Register />,
     },
   ]);
 

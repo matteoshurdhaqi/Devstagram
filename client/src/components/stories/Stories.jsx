@@ -8,22 +8,22 @@ const Stories = () => {
     const stories = [
         {
             id: 1,
-            name: "Soshita Nakagata",
+            name: "Lorenzo",
             img: "https://picsum.photos/200/300"
         },
         {
             id: 2,
-            name: "Soshita Nakagata",
+            name: "Frank",
             img: "https://picsum.photos/200/300"
         },
         {
             id: 3,
-            name: "Soshita Nakagata",
+            name: "Armando",
             img: "https://picsum.photos/200/300"
         },
         {
             id: 4,
-            name: "Soshita Nakagata",
+            name: "Giovanni",
             img: "https://picsum.photos/200/300"
         },
     ]
@@ -31,8 +31,8 @@ const Stories = () => {
     return (
         <div className='stories'>
             <div className='story'>
-                <img src={currentUser.profilePic} alt='' />
-                <span>{currentUser.firstname}</span>
+                <img src={currentUser.profileImg} alt='' />
+                <span>{currentUser.name}</span>
                 <button>+</button>
             </div>
             {stories.map(story => (

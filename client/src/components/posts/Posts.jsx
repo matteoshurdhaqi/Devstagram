@@ -1,29 +1,38 @@
+import {useQuery} from '@tanstack/react-query'
+import { makeRequest } from "../../axios"
 import Post from "../post/Post"
 import "./posts.scss"
 
-const Posts = () => {
 
-  const posts = [
-    {
-      id: 0,
-      name: "Eric Cartman",
-      userId: 1,
-      img: "https://www.southpark.it/immagini/episodi/stagione8/2/originali/3.jpg",
-      desc: "Il mio robottino ed io al mare"
-    },
-    {
-      id: 1,
-      name: "soshita",
-      userId: 2,
-      img: "https://i.guim.co.uk/img/media/323c85fb489c1c7d57d366f0b0053679a2c6c5df/107_0_718_431/master/718.png?width=465&quality=85&dpr=1&s=none",
-      desc: "Campagna di disinformazione"
-    },
-  ]
+
+const Posts = () => {
+  // const [posts, setPosts] = useState([]);
+
+  // useEffect(() => {
+  //   const fetchPosts = async () => {
+  //     try {
+  //       const response = await makeRequest.get('/post'); // Assicurati che l'URL sia corretto
+  //       setPosts(response.data);
+  //     } catch (error) {
+  //       console.error('Errore durante il recupero dei post:', error);
+  //     }
+  //   };
+
+  //   fetchPosts();
+  // }, []);
+
+  const { data: posts, isLoading, isError } = useQuery(['posts'], async () => {
+    const response = await makeRequest.get('/post');
+    return response.data;
+  });
+
+  if (isLoading) return <p>Loading...</p>;
+  if (isError) return <p>Error loading posts</p>;
 
   return (
     <div className='posts'>
-      {posts.map(post=>(
-        <Post post={post} key={post.id}/>
+      {posts.map(post => (
+        <Post post={post} key={post.id} />
       ))}
     </div>
   )
