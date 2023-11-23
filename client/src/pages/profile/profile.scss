@@ -31,7 +31,7 @@
         }
 
         .profileContainer {
-            padding: 20px 70px;
+            padding: 30px 50px;
             
             @include mobile{
                 padding: 10px;
@@ -89,7 +89,8 @@
                     gap: 10px;
 
                     span{
-                      font-size: 30px;
+                      
+                      font-size: 24px;
                       font-weight: 500;  
                     }
 

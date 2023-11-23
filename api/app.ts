@@ -8,6 +8,7 @@ import userRoutes from "./routes/users";
 import postRoutes from "./routes/posts";
 import commentRoutes from "./routes/comments";
 import likeRoutes from "./routes/likes";
+import multer from 'multer';
 
 const app = express();
 const PORT = 8800;
@@ -20,6 +21,22 @@ app.use((req, res, next) =>{
 app.use(express.json());
 app.use(cors(({ origin: 'http://localhost:3000' })))
 app.use(cookieParser());
+
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+      cb(null, '../client/public/upload')
+    },
+    filename: function (req, file, cb) {
+      cb(null, Date.now() + file.originalname)
+    }
+  })
+  
+const upload = multer({ storage: storage })
+
+app.post("/api/upload", upload.single("file"),  (req, res) =>{
+    const file: any= req.file;
+    res.status(200).json(file.filename)
+})
 
 app.use("/api/user", userRoutes)
 app.use("/api/post", postRoutes)

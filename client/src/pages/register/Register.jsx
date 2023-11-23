@@ -1,10 +1,13 @@
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import "./register.scss"
 import { useState } from "react";
 import axios from "axios";
+import { redirect } from "react-router-dom";
+
+
 
 const Register = () => {
-
+  const [redirectToLogin, setRedirectToLogin] = useState(false);
   const [inputs, setInputs] = useState({
     name: "",
     email: "",
@@ -25,6 +28,13 @@ const Register = () => {
     } catch (error) {
       setErr(Object.values(error.response.data));
     }
+    setRedirectToLogin(true);
+
+    if (redirectToLogin) {
+      return <redirect to="/login" />;
+    }
+  
+    
   }
 
 
@@ -39,7 +49,10 @@ const Register = () => {
           {err && (
             <p style={{color: "red"}}>{err}</p>
           )}
-          <button onClick={handleClick}>Registrati</button>
+          
+            <button onClick={handleClick}>Registrati</button>
+        
+            
         </form>
         <div>
           <span>Hai già un account?</span>

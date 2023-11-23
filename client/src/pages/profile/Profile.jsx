@@ -8,13 +8,17 @@ import LanguageIcon from "@mui/icons-material/Language";
 import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import Posts from "../../components/posts/Posts"
+import { useContext } from "react";
+import { AuthContext } from "../../context/authContext";
 
 const Profile = () => {
+  const {currentUser} = useContext(AuthContext);
+
   return (
     <div className="profile">
       <div className="images">
-        <img src="https://www.southpark.it/immagini/episodi/stagione8/2/originali/3.jpg" alt="" className="cover" />
-        <img src="https://static.miraheze.org/greatcharacterswiki/thumb/0/02/The-coon_.png/300px-The-coon_.png" alt="" className="profilePic" />
+        <img src={currentUser.coverImg} alt="" className="cover" />
+        <img src={currentUser.profileImg} alt="" className="profilePic" />
       </div>
       <div className="profileContainer">
         <div className="uInfo">
@@ -28,20 +32,18 @@ const Profile = () => {
             <a href="http://facebook.com">
               <TwitterIcon fontSize="large"/>
             </a>
-            <a href="http://facebook.com">
-              <LinkedInIcon fontSize="large"/>
-            </a>
+            
           </div>
           <div className="center">
-            <span>Eric Cartman</span>
+            <span>{currentUser.name}</span>
             <div className="info">
               <div className="item">
                 <PlaceIcon/>
-                <span>USA</span>
+                <span>{currentUser.city}</span>
               </div>
               <div className="item">
                 <LanguageIcon/>
-                <span>ericCartman.com</span>
+                <span>{currentUser.website}</span>
               </div>
               
             </div>
